@@ -11,6 +11,9 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -65,6 +68,20 @@ public class ProductRepositoryImpl implements ProductRepository {
     @Override
     public void deleteById(Long id) {
         productMapper.deleteById(id);
+    }
+
+    @Override
+    public Map<String, Long> countGroupByCategory() {
+        Map<String, Map<String, Object>> raw = productMapper.countGroupByCategory();
+        if (raw == null || raw.isEmpty()) {
+            return Collections.emptyMap();
+        }
+        Map<String, Long> result = new HashMap<>();
+        for (Map.Entry<String, Map<String, Object>> entry : raw.entrySet()) {
+            Object cnt = entry.getValue().get("cnt");
+            result.put(entry.getKey(), cnt instanceof Number ? ((Number) cnt).longValue() : 0L);
+        }
+        return result;
     }
 
     private ProductEntity toEntity(ProductPO po) {

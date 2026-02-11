@@ -69,4 +69,9 @@ public class ProductDomainServiceImpl implements ProductDomainService {
         productRepository.save(entity);
         return productRepository.getById(entity.getId());
     }
+
+    @Override
+    public Map<String, Long> countGroupByCategory() {
+        return productRepository.countGroupByCategory();
+    }
 }

@@ -25,4 +25,12 @@
         ORDER BY created_at DESC
     </select>
 
+    <!-- 按分类名称统计商品数量 -->
+    <select id="countGroupByCategory" resultType="map">
+        SELECT category, COUNT(*) AS cnt
+        FROM product
+        WHERE deleted = 0
+        GROUP BY category
+    </select>
+
 </mapper>

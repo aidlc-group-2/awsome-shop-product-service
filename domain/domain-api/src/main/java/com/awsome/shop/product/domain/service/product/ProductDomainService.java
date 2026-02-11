@@ -21,4 +21,11 @@ public interface ProductDomainService {
                          Integer status, String description, String imageUrl,
                          String subtitle, String deliveryMethod, String serviceGuarantee,
                          String promotion, String colors, List<Map<String, String>> specs);
+
+    /**
+     * 按分类名称统计商品数量
+     *
+     * @return Map，key 为分类名称，value 为商品数量
+     */
+    Map<String, Long> countGroupByCategory();
 }
