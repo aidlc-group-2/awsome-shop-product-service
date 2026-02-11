@@ -1,9 +1,9 @@
 # Local Development Environment Configuration
 # 本地开发环境配置
 
-# 服务端口 (开发环境固定 8081，禁止修改)
+# 服务端口 (商品服务端口 8002，与架构规划一致)
 server:
-  port: 8081
+  port: 8002
 
 # 说明:
 # - 日志输出到控制台，彩色格式 (在 logback-spring.xml 中配置)
