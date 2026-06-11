@@ -1,6 +1,7 @@
 package com.awsome.shop.product.application.impl.service.product;
 
 import com.awsome.shop.product.application.api.dto.product.ProductDTO;
+import com.awsome.shop.product.application.api.dto.product.ProductSnapshotDTO;
 import com.awsome.shop.product.application.api.dto.product.request.CreateProductRequest;
 import com.awsome.shop.product.application.api.dto.product.request.ListProductRequest;
 import com.awsome.shop.product.application.api.service.product.ProductApplicationService;
@@ -37,6 +38,19 @@ public class ProductApplicationServiceImpl implements ProductApplicationService 
                 request.getSubtitle(), request.getDeliveryMethod(), request.getServiceGuarantee(),
                 request.getPromotion(), request.getColors(), request.getSpecs());
         return toDTO(entity);
+    }
+
+    @Override
+    public ProductSnapshotDTO getSnapshot(Long productId) {
+        ProductEntity entity = productDomainService.getById(productId);
+        ProductSnapshotDTO dto = new ProductSnapshotDTO();
+        dto.setId(entity.getId());
+        dto.setName(entity.getName());
+        dto.setPointsPrice(entity.getPointsPrice());
+        dto.setMarketPrice(entity.getMarketPrice());
+        dto.setStatus(entity.getStatus());
+        dto.setStock(entity.getStock());
+        return dto;
     }
 
     private ProductDTO toDTO(ProductEntity entity) {
