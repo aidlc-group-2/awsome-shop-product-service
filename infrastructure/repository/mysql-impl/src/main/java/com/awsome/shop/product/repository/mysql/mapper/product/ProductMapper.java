@@ -32,4 +32,31 @@ public interface ProductMapper extends BaseMapper<ProductPO> {
      */
     @MapKey("category")
     Map<String, Map<String, Object>> countGroupByCategory();
+
+    /**
+     * 条件扣减库存（防超卖）。仅当库存充足时才扣减成功。
+     *
+     * @param productId 商品ID
+     * @param quantity  扣减数量
+     * @return 受影响行数（0 表示库存不足或商品不存在，扣减失败）
+     */
+    int deductStock(@Param("productId") Long productId, @Param("quantity") int quantity);
+
+    /**
+     * 回补库存（释放预占或 Saga 补偿）。
+     *
+     * @param productId 商品ID
+     * @param quantity  回补数量
+     * @return 受影响行数
+     */
+    int restoreStock(@Param("productId") Long productId, @Param("quantity") int quantity);
+
+    /**
+     * 累加已兑换数量（发货确认时）。
+     *
+     * @param productId 商品ID
+     * @param quantity  数量
+     * @return 受影响行数
+     */
+    int increaseSoldCount(@Param("productId") Long productId, @Param("quantity") int quantity);
 }

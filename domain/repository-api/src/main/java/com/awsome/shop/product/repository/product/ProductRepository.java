@@ -23,6 +23,25 @@ public interface ProductRepository {
     void deleteById(Long id);
 
     /**
+     * 条件扣减库存（防超卖）。
+     *
+     * @return true 表示扣减成功，false 表示库存不足或商品不存在
+     */
+    boolean deductStock(Long productId, int quantity);
+
+    /**
+     * 回补库存（释放预占 / Saga 补偿）。
+     *
+     * @return true 表示回补成功
+     */
+    boolean restoreStock(Long productId, int quantity);
+
+    /**
+     * 累加已兑换数量（发货确认）。
+     */
+    void increaseSoldCount(Long productId, int quantity);
+
+    /**
      * 按分类名称统计商品数量
      *
      * @return Map，key 为分类名称，value 为商品数量

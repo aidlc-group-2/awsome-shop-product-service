@@ -71,6 +71,21 @@ public class ProductRepositoryImpl implements ProductRepository {
     }
 
     @Override
+    public boolean deductStock(Long productId, int quantity) {
+        return productMapper.deductStock(productId, quantity) > 0;
+    }
+
+    @Override
+    public boolean restoreStock(Long productId, int quantity) {
+        return productMapper.restoreStock(productId, quantity) > 0;
+    }
+
+    @Override
+    public void increaseSoldCount(Long productId, int quantity) {
+        productMapper.increaseSoldCount(productId, quantity);
+    }
+
+    @Override
     public Map<String, Long> countGroupByCategory() {
         Map<String, Map<String, Object>> raw = productMapper.countGroupByCategory();
         if (raw == null || raw.isEmpty()) {
